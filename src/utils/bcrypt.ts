@@ -1,9 +1,9 @@
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 dotenv.config();
-const SECRET_PASSWORD = (process.env.SECRET_PASSWORD as string) || 8;
+const SECRET_PASSWORD = (process.env.SECRET_PASSWORD as string) || 11;
 export const hashPassword = (password: string): Promise<string> => {
-  return bcrypt.hash(password, SECRET_PASSWORD);
+  return bcrypt.hash(password, parseInt(SECRET_PASSWORD as string));
 };
 
 export const comparePassword = (
