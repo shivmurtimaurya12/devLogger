@@ -7,19 +7,18 @@ import type { AuthRequest } from "../middlewares/auth.middleware";
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
     const { name, email, password } = req.body;
-
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       res.status(400).json({ error: "Email already exists" });
       return;
     }
-
     const hashedPassword = await hashPassword(password);
 
     const user = await prisma.user.create({
       data: { email, password: hashedPassword, name },
     });
 
+    console.log(user);
     const token = generateToken(user.id);
     res.cookie("token", token, {
       httpOnly: true,
