@@ -10,7 +10,7 @@ import commentRoutes from "./routes/comment.routes";
 import { deleteComment } from "./controllers/comment.controller";
 import { authenticate } from "./middlewares/auth.middleware";
 
-dotenv.config();
+// dotenv.config();
 
 
 const app = express();
