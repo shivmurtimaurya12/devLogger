@@ -61,10 +61,3 @@ npm run dev
 Open the printed URL (typically `http://localhost:5173`).
 
 ---
-
-## Seed Accounts for Testing
-The backend database is seeded with two sample authors:
-- **Username**: `maya` | **Password**: `password123`
-- **Username**: `theo` | **Password**: `password123`
-
-You can also register a brand new account directly in the app.
