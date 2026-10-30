@@ -136,9 +136,9 @@ export default function Masthead({
                     <div className="text-ink font-semibold text-[13px] mt-0.5 truncate">
                       {currentUser.displayName}
                     </div>
-                    {currentUser.email && (
+                    {/* {currentUser.email && (
                       <div className="text-[11px] text-inkSoft/80 truncate">{currentUser.email}</div>
-                    )}
+                    )} */}
                   </div>
                   <button
                     onClick={async () => {
