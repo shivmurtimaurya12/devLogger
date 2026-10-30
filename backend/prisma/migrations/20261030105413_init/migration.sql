@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
+    "username" TEXT,
     "name" TEXT,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
@@ -28,7 +29,10 @@ CREATE TABLE "Post" (
     "slug" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "excerpt" TEXT,
-    "published" BOOLEAN NOT NULL DEFAULT false,
+    "coverFrom" TEXT DEFAULT '#55643E',
+    "coverTo" TEXT DEFAULT '#3E4A2C',
+    "readingMinutes" INTEGER DEFAULT 1,
+    "published" BOOLEAN NOT NULL DEFAULT true,
     "views" INTEGER NOT NULL DEFAULT 0,
     "authorId" TEXT NOT NULL,
     "categoryId" TEXT NOT NULL,
@@ -70,6 +74,9 @@ CREATE TABLE "_PostToTag" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
@@ -100,7 +107,7 @@ ALTER TABLE "Post" ADD CONSTRAINT "Post_categoryId_fkey" FOREIGN KEY ("categoryI
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Comment" ADD CONSTRAINT "Comment_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Comment" ADD CONSTRAINT "Comment_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_PostToTag" ADD CONSTRAINT "_PostToTag_A_fkey" FOREIGN KEY ("A") REFERENCES "Post"("id") ON DELETE CASCADE ON UPDATE CASCADE;
