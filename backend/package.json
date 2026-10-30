@@ -6,6 +6,7 @@
   "scripts": {
     "start": "bun src/index.ts",
     "dev": "bun --watch src/index.ts",
+    "build": "bun install && bunx prisma generate && bun run build",
     "seed": "bun src/scripts/seed.ts",
     "migrate": "bun src/scripts/migrate.ts",
     "test:api": "bun src/scripts/test-api.ts",
