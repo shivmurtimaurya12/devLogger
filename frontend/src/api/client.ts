@@ -3,7 +3,7 @@ import type { Post, User, Category, Comment } from "../types";
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
-console.log(API_BASE_URL);
+
 /**
  * In-memory storage for JWT token.
  * Note: Authentication is also supported via secure HTTP-only cookies.

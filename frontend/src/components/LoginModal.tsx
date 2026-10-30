@@ -114,7 +114,7 @@ export default function LoginModal({
               </div>
               <div>
                 <label className="block font-mono text-[11px] text-inkSoft mb-1">
-                  Email (optional)
+                  Email
                 </label>
                 <input
                   type="email"
