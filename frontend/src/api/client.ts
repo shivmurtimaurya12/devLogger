@@ -3,6 +3,7 @@ import type { Post, User, Category, Comment } from "../types";
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || "http://localhost:8080/api";
 
+console.log(API_BASE_URL);
 /**
  * In-memory storage for JWT token.
  * Note: Authentication is also supported via secure HTTP-only cookies.
@@ -22,7 +23,7 @@ export const getAuthToken = (): string | null => {
  */
 async function request<T>(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
   const url = `${API_BASE_URL}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`;
 
@@ -61,7 +62,10 @@ async function request<T>(
 // ==========================================
 
 export const authApi = {
-  login: async (identifier: string, password: string): Promise<{ user: User; token: string }> => {
+  login: async (
+    identifier: string,
+    password: string,
+  ): Promise<{ user: User; token: string }> => {
     const data = await request<{ user: User; token: string }>("/auth/login", {
       method: "POST",
       body: JSON.stringify({ identifier, password }),
@@ -76,10 +80,13 @@ export const authApi = {
     displayName: string;
     email?: string;
   }): Promise<{ user: User; token: string }> => {
-    const data = await request<{ user: User; token: string }>("/auth/register", {
-      method: "POST",
-      body: JSON.stringify(params),
-    });
+    const data = await request<{ user: User; token: string }>(
+      "/auth/register",
+      {
+        method: "POST",
+        body: JSON.stringify(params),
+      },
+    );
     setAuthToken(data.token);
     return data;
   },
@@ -143,7 +150,7 @@ export const postsApi = {
       categoryId?: string;
       tags?: string[];
       cover?: { from: string; to: string };
-    }>
+    }>,
   ): Promise<Post> => {
     return request<Post>(`/posts/${encodeURIComponent(id)}`, {
       method: "PUT",
@@ -152,15 +159,23 @@ export const postsApi = {
   },
 
   delete: async (id: string): Promise<{ message: string; id: string }> => {
-    return request<{ message: string; id: string }>(`/posts/${encodeURIComponent(id)}`, {
-      method: "DELETE",
-    });
+    return request<{ message: string; id: string }>(
+      `/posts/${encodeURIComponent(id)}`,
+      {
+        method: "DELETE",
+      },
+    );
   },
 
-  recordView: async (id: string): Promise<{ id: string; readCount: number }> => {
-    return request<{ id: string; readCount: number }>(`/posts/${encodeURIComponent(id)}/view`, {
-      method: "POST",
-    });
+  recordView: async (
+    id: string,
+  ): Promise<{ id: string; readCount: number }> => {
+    return request<{ id: string; readCount: number }>(
+      `/posts/${encodeURIComponent(id)}/view`,
+      {
+        method: "POST",
+      },
+    );
   },
 };
 
@@ -197,9 +212,14 @@ export const commentsApi = {
     });
   },
 
-  delete: async (commentId: string): Promise<{ message: string; id: string }> => {
-    return request<{ message: string; id: string }>(`/comments/${encodeURIComponent(commentId)}`, {
-      method: "DELETE",
-    });
+  delete: async (
+    commentId: string,
+  ): Promise<{ message: string; id: string }> => {
+    return request<{ message: string; id: string }>(
+      `/comments/${encodeURIComponent(commentId)}`,
+      {
+        method: "DELETE",
+      },
+    );
   },
 };
